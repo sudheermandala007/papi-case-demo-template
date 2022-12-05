@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:munit="http://www.mulesoft.org/schema/mule/munit" xmlns:munit-tools="http://www.mulesoft.org/schema/mule/munit-tools"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xsi:schemaLocation="
+		http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+		http://www.mulesoft.org/schema/mule/munit http://www.mulesoft.org/schema/mule/munit/current/mule-munit.xsd
+		http://www.mulesoft.org/schema/mule/munit-tools  http://www.mulesoft.org/schema/mule/munit-tools/current/mule-munit-tools.xsd">
+	<munit:config name="implementation-test-suite.xml" />
+	<munit:test name="implementation-test-suite-patchCaseTest" doc:id="613775a2-d534-4f94-babb-a8e9d1d78ab0" description="Test">
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock when" doc:id="274563f3-e7a0-4e89-98a5-b5c934d3b2a5" processor="http:request">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="9219814e-2eee-4a23-ac59-91da910ac5b3" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution >
+			<munit:set-event doc:name="Set Event Payload" doc:id="85b99c4c-1638-4336-b312-5cac00f9b3ed" >
+				<munit:payload value="#[output application/json --- readUrl('classpath://examples/patch-case-request.json', 'application/json')]" mediaType="application/json" />
+				<munit:attributes value='#[{uriParams:{id:"5005g00000BbG45AAF"}}]' mediaType="application/json" />
+			</munit:set-event>
+			<flow-ref doc:name="patchCase" doc:id="2d202df8-de04-49ad-b1ba-859f1d111b40" name="patchCase"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:verify-call doc:name="Verify call" doc:id="016604b7-c994-4b80-bf9a-d8fd8a1e45f6" processor="http:request">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="9219814e-2eee-4a23-ac59-91da910ac5b3" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+			</munit-tools:verify-call>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="implementation-test-suite-getCaseTest" doc:id="5752db6d-afd6-499c-9864-f7db9d95fed0" description="Test">
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock when" doc:id="c572de06-dd93-40ed-a11f-b171ebd97231" processor="http:request">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="893a1811-fe3d-4859-9ce7-41d31e42d51a" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value="#[output application/json --- readUrl('classpath://examples/get-case-response.json')]" mediaType="application/json" />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution >
+			<munit:set-event doc:name="Set Event" doc:id="680335e1-2738-479b-84d9-1b10d574d14f" >
+				<munit:attributes value='#[{uriParams:{id:"5005g00000BbG45AAF"}}]' />
+			</munit:set-event>
+			<flow-ref doc:name="getCase" doc:id="ed7b2d2d-ac9b-4678-9af8-e7f0d4542b4b" name="getCase"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:verify-call doc:name="Verify call" doc:id="e1192f37-3a87-458e-90b4-d29adb85fa3e" processor="http:request">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="893a1811-fe3d-4859-9ce7-41d31e42d51a" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+			</munit-tools:verify-call>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="implementation-test-suite-postCaseTest" doc:id="dbe0093d-4434-49f3-ba48-38a0ba821b51" description="Test">
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock when" doc:id="1f2b67da-f861-457b-b44a-a22322df8ccb" processor="http:request">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="f481047e-614d-463e-96bd-41bb73e6670c" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution >
+			<munit:set-event doc:name="Set Event Payload" doc:id="e769ad04-e6fa-4139-ba54-af83c58f042b" >
+				<munit:payload value="#[output application/json --- readUrl('classpath://examples/post-case-request.json', 'application/json')]" mediaType="application/json" />
+				<munit:variables >
+					<munit:variable key="Id" value="5005g00000BbG45AAF" />
+				</munit:variables>
+			</munit:set-event>
+			<flow-ref doc:name="postCase" doc:id="09dcb217-1f46-483b-9e44-6ab2d68c3449" name="postCase"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:verify-call doc:name="Verify call" doc:id="5cdbe7a2-5242-4706-ab0a-e4c82b547ce0" processor="http:request">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="f481047e-614d-463e-96bd-41bb73e6670c" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+			</munit-tools:verify-call>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="implementation-test-suiteFlow-failure-scenario1" doc:id="8b471fee-269c-4edd-9bb9-220fbed629f8">
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock when HTTP:BAD_REQUEST" doc:id="5a810251-b6b8-4a77-a354-d94115e0ca7e" processor="http:request">
+			<munit-tools:with-attributes>
+				<munit-tools:with-attribute whereValue="893a1811-fe3d-4859-9ce7-41d31e42d51a" attributeName="doc:id" />
+			</munit-tools:with-attributes>
+			<munit-tools:then-return>
+				<munit-tools:error typeId="HTTP:BAD_REQUEST" />
+			</munit-tools:then-return>
+		</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution >
+			<munit:set-event doc:name="Set Event" doc:id="0bfe5d03-467b-4bbd-b395-bb54b729be33" >
+				<munit:attributes value='#[{uriParams:{id:"5005g00000BbG"}}]' />
+			</munit:set-event>
+			<flow-ref doc:name="getCase" doc:id="d836f05f-cab7-4027-9b50-06fe052714fc" name="getCase"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:verify-call doc:name="Verify call" doc:id="2d005621-4704-4187-874c-c69cde411ba6" processor="http:request">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="893a1811-fe3d-4859-9ce7-41d31e42d51a" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+			</munit-tools:verify-call>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="implementation-test-suiteFlow-failure-scenario2" doc:id="dbbdbf27-b320-463c-8788-95eb8b78a11c" >
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock when HTTP:INTERNAL_SERVER_ERROR" doc:id="90f80d06-b08e-42bd-bd30-3474a915f45e" processor="http:request">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="9219814e-2eee-4a23-ac59-91da910ac5b3" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:error typeId="HTTP:INTERNAL_SERVER_ERROR" />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution >
+			<munit:set-event doc:name="Set Event" doc:id="be84e308-33a5-42f8-9d2e-a65bcc71352c" >
+				<munit:payload value="#[output application/json --- readUrl('classpath://examples/patch-case-request.json', 'application/json')]" mediaType="application/json" />
+				<munit:attributes value='#[{uriParams:{id:"5005g0F"}}]' mediaType="application/json" />
+			</munit:set-event>
+			<flow-ref doc:name="patchCase" doc:id="5378f4ce-4d26-4ae5-81fb-cd5513324236" name="patchCase"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:verify-call doc:name="Verify call" doc:id="2361be29-5b01-41b6-8b27-7903beb5f264" processor="http:request">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="9219814e-2eee-4a23-ac59-91da910ac5b3" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+			</munit-tools:verify-call>
+		</munit:validation>
+	</munit:test>
+
+
+</mule>

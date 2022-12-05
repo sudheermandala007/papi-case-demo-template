@@ -1,0 +1,12 @@
+http:
+  host: "0.0.0.0"
+  port: "8081"
+    
+api:
+  id: "18338255"
+  clientId: "8d620d6964dd48de996c8ccc5bd3a8bb"
+  clientSecret: "![d1m7fi4ANsMsFCA2OAZdE8+BrUVFYFJ6KG697BJPw1YtHgUOKAdTEw==]"
+     
+sapi-case-sfdc-demo-template:
+  host: "sapi-case-sfdc-demo-template-hiofa4.5sc6y6-2.usa-e2.cloudhub.io"
+
